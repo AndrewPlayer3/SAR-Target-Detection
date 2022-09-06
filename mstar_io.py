@@ -66,6 +66,22 @@ def read_mstar_file(filename):
 
 def get_files_and_types(data_dir):
     
+    """
+    Gets the list of sample filepaths and the target_types.
+
+    Parameters:
+    -----------
+    data_dir : str
+        The directory which contains the data, before processing with make_dataset.
+
+    Returns:
+    --------
+    data_files : list[str]
+        The list of filepaths of data examples.
+    target_types : list[str]
+        The list of target types existing in the dataset.
+    """
+
     data_files = []
     target_types = []
     for root, _, files in os.walk(data_dir):
