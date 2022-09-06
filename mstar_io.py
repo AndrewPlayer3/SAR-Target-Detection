@@ -11,7 +11,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-def read_mstar_file(filename):
+def read_mstar_file(
+    filename : str
+):
 
     """
     Parse the header and data from an MSTAR data file.
@@ -64,7 +66,9 @@ def read_mstar_file(filename):
     return magnitude, phase, header
 
 
-def get_files_and_types(data_dir):
+def get_files_and_types(
+    data_dir: str
+):
     
     """
     Gets the list of sample filepaths and the target_types.
@@ -155,7 +159,11 @@ def split_dataset(
     return num_train, num_validation
 
 
-def make_dataset(in_data_dir, out_data_dir: str = ".", validation_split = 0.1):
+def make_dataset(
+    in_data_dir:      str,
+    out_data_dir:     str = ".",
+    validation_split: int = 0.1
+):
     
     """
     Create a ready-to-train dataset. 
@@ -212,27 +220,34 @@ def make_dataset(in_data_dir, out_data_dir: str = ".", validation_split = 0.1):
 
         if num_rows >= 128 and num_cols >= 128:
 
-            roffset = (num_rows-128)//2
-            coffset = (num_cols-128)//2
+            row_offset = (num_rows - 128) // 2
+            col_offset = (num_cols - 128) // 2
 
-            data = magnitude[roffset:(128+roffset),coffset:(128+coffset)]
+            data = magnitude[row_offset:(128+row_offset), col_offset:(128+col_offset)]
 
             target_type = header['TargetType']
-            out_name = header['ParentScene'] + target_type
+            out_name    = header['ParentScene'] + target_type
 
             label = np.zeros(len(target_types))
             label[labels[target_type]] = 1
 
             count += 1
 
-            np.savez(os.path.join(save_directory, out_name), magnitude=data, label=label, header=header)
+            np.savez(
+                os.path.join(save_directory, out_name),
+                magnitude=data,
+                label=label,
+                header=header
+            )
 
     split_dataset(save_directory, validation_split)
 
     return save_directory, count, labels, target_types
 
 
-def plot_mstar_file(filename):
+def plot_mstar_file(
+    filename: str
+):
     
     """
     Plot MSTAR sample via its filename
@@ -244,7 +259,9 @@ def plot_mstar_file(filename):
     plt.show()
 
 
-def plot_mstar_sample(magnitude):
+def plot_mstar_sample(
+    magnitude: str
+):
 
     """
     Plot MSTAR sample via its magnitude data.
@@ -254,7 +271,9 @@ def plot_mstar_sample(magnitude):
     plt.show()
 
 
-def load_sample(filename):
+def load_sample(
+    filename: str
+):
     
     """
     Load magnitude and label information from a dataset file.
@@ -264,7 +283,10 @@ def load_sample(filename):
     return dataset_file['magnitude'], dataset_file['label']
 
 
-def test_with_val_data(dataset_dir, model_path):
+def test_with_val_data(
+    dataset_dir: str,
+    model_path:  str
+):
 
     """
     Run predictions on the validation samples of a dataset.
