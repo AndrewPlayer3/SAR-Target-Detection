@@ -23,12 +23,15 @@ print("CREATING DATASET:")
 print("-----------------")
 
 """
-    Right now, the data dir should just contain the target folders, as such:
+    Right now, the data dir should just contain the target folders:
     ./data
         |_ BRDM_2/ 
         |_ .../
 """
-save_directory, count, label_dict, target_types = make_dataset(DATA_DIR, validation_split=VALIDATION_SPLIT)
+save_directory, count, label_dict, target_types = make_dataset(
+    DATA_DIR,
+    validation_split=VALIDATION_SPLIT
+)
 
 training_set_dir = "./" + str(save_directory)
 

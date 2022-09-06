@@ -81,7 +81,13 @@ class DataGenerator(Sequence):
         return x, y
 
 
-def train_model(model_name, dataset_dir, tile_size, num_epochs, batch_size):
+def train_model(
+    model_name:  str,
+    dataset_dir: str,
+    tile_size:   int,
+    num_epochs:  int,
+    batch_size:  int
+):
 
     train_path = dataset_dir + '/train'
     val_path   = dataset_dir + '/validation'
